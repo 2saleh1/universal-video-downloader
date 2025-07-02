@@ -71,9 +71,9 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## ⚠️ Disclaimer
+## ℹ️ Note
 
-This tool is for personal use only. Please respect copyright laws and platform terms of service. Only download content you have permission to download.
+Please respect content creators and platform terms of service when using this tool.
 
 ## 🙏 Acknowledgments
 
