@@ -54,7 +54,7 @@ YouTube, Vimeo, Facebook, Instagram, Twitter/X, TikTok, Twitch, Reddit, Dailymot
 
 ![App Screenshot](screenshot.png)
 
-*Add your own screenshot of the application interface*
+
 
 ## 🛠️ Technical Details
 
