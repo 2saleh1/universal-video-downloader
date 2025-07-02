@@ -52,7 +52,7 @@ YouTube, Vimeo, Facebook, Instagram, Twitter/X, TikTok, Twitch, Reddit, Dailymot
 
 ## 📱 Screenshots
 
-![App Screenshot](screenshot.png)
+![App Screenshot](Screenshot.png)
 
 
 
