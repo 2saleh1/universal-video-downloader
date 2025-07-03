@@ -37,18 +37,17 @@ class UniversalVideoDownloader:
         try:
             # Check yt-dlp
             subprocess.run(['yt-dlp', '--version'], 
-                         capture_output=True, check=True)
+                        capture_output=True, check=True)
         except (subprocess.CalledProcessError, FileNotFoundError):
             self.install_ytdlp()
             
         try:
             # Check ffmpeg
             subprocess.run(['ffmpeg', '-version'], 
-                         capture_output=True, check=True)
+                        capture_output=True, check=True)
         except (subprocess.CalledProcessError, FileNotFoundError):
-            messagebox.showwarning("FFmpeg Not Found", 
-                                 "FFmpeg is recommended for better quality downloads.\n"
-                                 "Please install it from https://ffmpeg.org/")
+            # Instead of just showing a warning, try to install ffmpeg
+            self.install_ffmpeg()
     
     def install_ytdlp(self):
         """Install yt-dlp automatically"""
@@ -58,6 +57,64 @@ class UniversalVideoDownloader:
             messagebox.showinfo("Success", "yt-dlp installed successfully!")
         except subprocess.CalledProcessError:
             messagebox.showerror("Error", "Failed to install yt-dlp. Please install manually:\npip install yt-dlp")
+            
+            
+    def install_ffmpeg(self):
+        """Install ffmpeg automatically based on the platform"""
+        platform = sys.platform
+        self.status_var.set("Installing FFmpeg...")
+        
+        try:
+            if platform == "win32":  # Windows
+                # For Windows, we'll use the pip package ffmpeg-python which includes binaries
+                subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'ffmpeg-python'])
+                messagebox.showinfo("Success", "FFmpeg installed successfully!")
+                
+            elif platform == "darwin":  # macOS
+                # Check if homebrew is installed
+                try:
+                    subprocess.run(['brew', '--version'], capture_output=True, check=True)
+                    # Install ffmpeg with homebrew
+                    subprocess.check_call(['brew', 'install', 'ffmpeg'])
+                    messagebox.showinfo("Success", "FFmpeg installed successfully via Homebrew!")
+                except (subprocess.CalledProcessError, FileNotFoundError):
+                    # Homebrew not found
+                    messagebox.showwarning("Homebrew Not Found", 
+                                        "Homebrew is needed to install FFmpeg on macOS.\n"
+                                        "Please install Homebrew first: https://brew.sh/")
+                    
+            elif platform.startswith("linux"):  # Linux
+                # Try apt (Debian/Ubuntu)
+                try:
+                    subprocess.check_call(['sudo', 'apt', 'update'])
+                    subprocess.check_call(['sudo', 'apt', 'install', '-y', 'ffmpeg'])
+                    messagebox.showinfo("Success", "FFmpeg installed successfully via apt!")
+                except subprocess.CalledProcessError:
+                    # Try yum (Fedora/CentOS/RHEL)
+                    try:
+                        subprocess.check_call(['sudo', 'yum', 'install', '-y', 'ffmpeg'])
+                        messagebox.showinfo("Success", "FFmpeg installed successfully via yum!")
+                    except subprocess.CalledProcessError:
+                        # Try pacman (Arch Linux)
+                        try:
+                            subprocess.check_call(['sudo', 'pacman', '-S', '--noconfirm', 'ffmpeg'])
+                            messagebox.showinfo("Success", "FFmpeg installed successfully via pacman!")
+                        except subprocess.CalledProcessError:
+                            # If all package managers fail
+                            messagebox.showwarning("Installation Failed", 
+                                                "Failed to install FFmpeg automatically.\n"
+                                                "Please install FFmpeg manually for your Linux distribution.")
+            else:
+                # Unsupported platform
+                messagebox.showwarning("Unsupported Platform", 
+                                    "Automatic FFmpeg installation not supported on this platform.\n"
+                                    "Please install FFmpeg manually: https://ffmpeg.org/")
+                
+        except Exception as e:
+            messagebox.showwarning("FFmpeg Installation", 
+                                f"Could not install FFmpeg automatically: {str(e)}.\n"
+                                "Please install FFmpeg manually: https://ffmpeg.org/")
+        
             
     def setup_ui(self):
         """Setup the user interface"""
