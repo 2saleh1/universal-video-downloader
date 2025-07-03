@@ -8,10 +8,10 @@ import threading
 from pathlib import Path
 import re
 
-class YouTubeDownloader:
+class UniversalVideoDownloader:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("YouTube Video Downloader")
+        self.root.title("Universal Video Downloader")
         self.root.geometry("800x600")
         self.root.configure(bg='#1e1e1e')
         
@@ -78,7 +78,7 @@ class YouTubeDownloader:
         main_frame.pack(fill='both', expand=True, padx=20, pady=20)
         
         # Title
-        title_label = tk.Label(main_frame, text="🎥 YouTube Video Downloader", 
+        title_label = tk.Label(main_frame, text="🎥 Universal Video Downloader", 
                               font=('Arial', 24, 'bold'), 
                               bg='#1e1e1e', fg='#667eea')
         title_label.pack(pady=(0, 30))
@@ -334,5 +334,5 @@ class YouTubeDownloader:
         self.root.mainloop()
 
 if __name__ == "__main__":
-    app = YouTubeDownloader()
+    app = UniversalVideoDownloader()
     app.run()
