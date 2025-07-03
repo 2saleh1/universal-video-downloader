@@ -26,7 +26,7 @@ A sleek, easy-to-use desktop application for downloading videos from YouTube and
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/universal-video-downloader.git
+   git clone https://github.com/2saleh1/universal-video-downloader.git
    cd universal-video-downloader
    ```
 
